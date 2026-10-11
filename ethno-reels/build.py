@@ -27,7 +27,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SR = music.SR
 VOICE_LEAD = {'hook': .25, 'item': .3, 'fact': .3, 'cta': .9}
 VOICE_CHAIN = ('highpass=f=90,lowpass=f=7500,equalizer=f=220:t=q:w=1.2:g=2,'
-               'acompressor=threshold=-20dB:ratio=3:attack=5:release=80,volume=1.5,aecho=0.8:0.5:35:0.12')
+               'acompressor=threshold=-20dB:ratio=3:attack=5:release=80,volume=2.0,aecho=0.8:0.5:35:0.12')
 
 
 def run(cmd, **kw):
@@ -109,7 +109,7 @@ def build(reel_id, cfg, stills=None, reuse_visual=False):
     run(['ffmpeg', '-y', '-loglevel', 'error', '-i', visual, '-i', mus_path,
          '-filter_complex', '[1:a]loudnorm=I=-14:TP=-1.5:LRA=11[a]', '-map', '0:v', '-map', '[a]'] + common + [out_music])
     out_voice = os.path.join(ROOT, 'out', reel_id + '_dauys.mp4')
-    fc = (f'[2:a]{VOICE_CHAIN},asplit=2[v1][v2];[1:a]volume=0.55[m];'
+    fc = (f'[2:a]{VOICE_CHAIN},asplit=2[v1][v2];[1:a]volume=0.45[m];'
           '[m][v2]sidechaincompress=threshold=0.03:ratio=10:attack=15:release=350[md];'
           '[md][v1]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]')
     run(['ffmpeg', '-y', '-loglevel', 'error', '-i', visual, '-i', mus_path, '-i', voice_path,
