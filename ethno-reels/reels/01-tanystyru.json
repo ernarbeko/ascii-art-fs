@@ -1,0 +1,14 @@
+{
+  "title": "Дүкенмен таныстыру",
+  "palette": "burgundy",
+  "music": { "tempo": 104, "mode": "aeolian", "seed": 1 },
+  "cover_at": 2.6,
+  "scenes": [
+    { "type": "hook", "text": "*Қазақы нақыш* іздеп жүрсіз бе?", "voice": "Қазақы нақыш іздеп жүрсіз бе?", "min": 3.0, "icon": "koshkar" },
+    { "type": "item", "icon": "saukele", "title": "Ұлттық киімдер", "voice": "Ұлттық киімдер.", "min": 2.4, "tag": "01 / 04", "seed": 3 },
+    { "type": "item", "icon": "kese", "title": "Қолөнер бұйымдары", "voice": "Қолөнер бұйымдары.", "min": 2.4, "tag": "02 / 04", "seed": 5 },
+    { "type": "item", "icon": "bilezik", "title": "Күміс әшекейлер", "voice": "Күміс әшекейлер.", "min": 2.4, "tag": "03 / 04", "seed": 7 },
+    { "type": "item", "icon": "dombra", "title": "Ерекше кәдесыйлар", "voice": "Ерекше кәдесыйлар.", "min": 2.4, "tag": "04 / 04", "tilt": -18, "seed": 9 },
+    { "type": "cta", "voice": "Тапсырыс беру үшін директке жазыңыз!", "min": 4.6 }
+  ]
+}

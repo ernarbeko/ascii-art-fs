@@ -1,0 +1,14 @@
+{
+  "title": "Сыйлық идеялары",
+  "palette": "sky",
+  "music": { "tempo": 112, "mode": "mixolydian", "seed": 2 },
+  "cover_at": 2.8,
+  "scenes": [
+    { "type": "hook", "text": "*Сыйлық* таңдай алмай жүрсіз бе?", "voice": "Сыйлық таңдай алмай жүрсіз бе?", "min": 3.0, "icon": "gift" },
+    { "type": "item", "icon": "bilezik", "kicker": "Анаңызға —", "title": "күміс білезік", "voice": "Анаңызға — күміс білезік.", "min": 2.5, "seed": 4 },
+    { "type": "item", "icon": "dombra", "kicker": "Әкеңізге —", "title": "домбыра", "voice": "Әкеңізге — домбыра.", "min": 2.5, "tilt": -18, "seed": 6 },
+    { "type": "item", "icon": "kese", "kicker": "Әжеңізге —", "title": "оюлы кесе", "voice": "Әжеңізге — оюлы кесе.", "min": 2.5, "seed": 8 },
+    { "type": "item", "icon": "yurt", "kicker": "Досыңызға —", "title": "ұлттық кәдесый", "voice": "Досыңызға — ұлттық кәдесый.", "min": 2.5, "seed": 10 },
+    { "type": "cta", "tagline": "Мағыналы сыйлықтар — бізде", "voice": "Мағыналы сыйлықтар бізде. Директке жазыңыз!", "min": 4.6 }
+  ]
+}

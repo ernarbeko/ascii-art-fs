@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<title>Ethno reel renderer</title>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<style>
+  :root { --bg1:#2a0810; --bg2:#7a1a2a; --gold:#e8b85a; --gold2:#b8862f; --cream:#f8ecd4; --accent:#2bb3a8; }
+  html, body { margin:0; padding:0; background:#000; }
+  #stage { position:relative; width:1080px; height:1920px; overflow:hidden; font-family:'Montserrat', sans-serif; color:var(--cream);
+    background: radial-gradient(ellipse 120% 80% at 50% 42%, var(--bg2) 0%, var(--bg1) 72%); }
+  .layer { position:absolute; inset:0; }
+  .scene { position:absolute; inset:0; opacity:0; will-change:opacity, transform; }
+  svg { overflow:visible; }
+  .center { position:absolute; left:90px; right:90px; text-align:center; }
+  .big { font-weight:900; font-size:112px; line-height:1.08; letter-spacing:-1px; text-shadow:0 6px 30px rgba(0,0,0,.45); }
+  .big .w { display:inline-block; margin:0 .14em; }
+  .hl { color:var(--gold); }
+  .kicker { font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:76px; color:var(--gold); }
+  .title-wrap { overflow:hidden; padding:6px 0 14px; }
+  .title { font-weight:800; font-size:100px; line-height:1.05; text-shadow:0 6px 26px rgba(0,0,0,.4); }
+  .caption { font-weight:500; font-size:46px; opacity:.85; letter-spacing:.5px; }
+  .fact { font-weight:700; font-size:78px; line-height:1.18; text-shadow:0 6px 26px rgba(0,0,0,.45); }
+  .fact .line { display:block; }
+  .brand { font-weight:900; font-size:118px; letter-spacing:8px; line-height:1;
+    background:linear-gradient(180deg, #fff3cf 0%, var(--gold) 45%, var(--gold2) 100%); -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,.45)); }
+  .tagline { font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:64px; color:var(--cream); }
+  .btn { display:inline-flex; align-items:center; gap:22px; padding:30px 56px; border-radius:999px; background:linear-gradient(180deg, #ffe39a, var(--gold) 55%, var(--gold2));
+    color:#2a1606; font-weight:800; font-size:54px; box-shadow:0 14px 40px rgba(0,0,0,.45), inset 0 2px 0 rgba(255,255,255,.6); }
+  .info { font-weight:600; font-size:44px; line-height:1.5; color:var(--cream); opacity:.92; }
+  .tag { font-weight:700; font-size:34px; letter-spacing:6px; color:var(--gold); opacity:.9; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg class="layer" id="noise" width="1080" height="1920" style="opacity:.10; mix-blend-mode:overlay">
+    <filter id="felt"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" seed="7"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="1080" height="1920" filter="url(#felt)"/>
+  </svg>
+  <div class="layer" id="bg"></div>
+  <div class="layer" id="pin"></div>
+  <div class="layer" id="scenes"></div>
+  <div class="layer" id="frame"></div>
+  <div class="layer" style="background:radial-gradient(ellipse 90% 70% at 50% 45%, transparent 55%, rgba(0,0,0,.55) 100%); pointer-events:none"></div>
+</div>
+<script src="engine.js"></script>
+</body>
+</html>
