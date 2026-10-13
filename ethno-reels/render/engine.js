@@ -185,14 +185,16 @@ function makeIcon(name, size, pal, opts = {}) {
 }
 
 // Twinkling 4-point stars around a point.
-function makeSparkles(parent, pal, cx, cy, radius, n, seed) {
+function makeSparkles(parent, pal, cx, cy, radius, n, seed, maxY = 1920) {
   const svg = el('svg', { width: 1080, height: 1920, style: 'position:absolute;left:0;top:0' }, parent);
   let s = seed;
   const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
   const stars = [];
   for (let i = 0; i < n; i++) {
     const a = rnd() * Math.PI * 2, r = radius * (.75 + rnd() * .5);
-    const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r, k = 8 + rnd() * 14;
+    const x = cx + Math.cos(a) * r, k = 8 + rnd() * 14;
+    let y = cy + Math.sin(a) * r;
+    if (y > maxY) y = 2 * cy - y;  // keep stars off the text below the icon
     const p = el('path', { d: `M${x} ${y - k}L${x + k * .28} ${y - k * .28}L${x + k} ${y}L${x + k * .28} ${y + k * .28}L${x} ${y + k}L${x - k * .28} ${y + k * .28}L${x - k} ${y}L${x - k * .28} ${y - k * .28}Z`, fill: pal.gold }, svg);
     stars.push({ p, ph: rnd() * 6.28, sp: 2 + rnd() * 3, delay: rnd() * .8 });
   }
@@ -293,7 +295,7 @@ const BUILDERS = {
     const icon = makeIcon(sc.icon, 560, pal, { stroke: 4.2 });
     Object.assign(icon.svg.style, { position: 'absolute', left: '260px', top: '400px' });
     root.appendChild(icon.svg);
-    const spark = makeSparkles(root, pal, 540, 680, 330, 7, sc.seed || 3);
+    const spark = makeSparkles(root, pal, 540, 680, 330, 7, sc.seed || 3, 960);
     let kicker = null;
     if (sc.kicker) { kicker = div('center kicker', root, sc.kicker); kicker.style.top = '1035px'; }
     const tw = div('center title-wrap', root);
