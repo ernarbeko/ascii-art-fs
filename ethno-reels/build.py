@@ -25,7 +25,7 @@ import music  # noqa: E402
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SR = music.SR
-VOICE_LEAD = {'hook': .25, 'item': .3, 'fact': .3, 'cta': .9}
+VOICE_LEAD = {'hook': .25, 'item': .3, 'fact': .3, 'photo': .35, 'cta': .9}
 VOICE_CHAIN = ('highpass=f=90,lowpass=f=7500,equalizer=f=220:t=q:w=1.2:g=2,'
                'acompressor=threshold=-20dB:ratio=3:attack=5:release=80,volume=2.0,aecho=0.8:0.5:35:0.12')
 
@@ -128,6 +128,6 @@ if __name__ == '__main__':
     if reuse:
         args.remove('--reuse-visual')
     cfg = json.load(open(os.path.join(ROOT, 'config.json')))
-    ids = args or sorted(f[:-5] for f in os.listdir(os.path.join(ROOT, 'reels')) if f.endswith('.json'))
+    ids = args or sorted(f[:-5] for f in os.listdir(os.path.join(ROOT, 'reels')) if f.endswith('.json') and not f.startswith('_'))
     for rid in ids:
         build(rid, cfg, stills, reuse)

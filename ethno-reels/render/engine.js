@@ -142,6 +142,13 @@ const ICONS = {
     { d: circ(100, 58, 10), w: .8 },
     ...miniHorns(100, 104, .8, -1),
   ],
+  shapan: () => [
+    { d: 'M62 40 L84 28 Q100 50 116 28 L138 40 L150 182 L50 182 Z', fill: 'accent', w: 1.1 },
+    { d: 'M62 40 L26 112 L44 122 L66 80 M138 40 L174 112 L156 122 L134 80', w: 1 },
+    { d: 'M84 28 Q100 50 116 28 M100 48 L100 182 M50 168 L150 168 M30 104 L46 113 M170 104 L154 113', w: .8 },
+    { d: 'M96 70 L104 70 M96 92 L104 92 M96 114 L104 114', w: .7 },
+    ...miniHorns(76, 132, .8, 1), ...miniHorns(124, 132, .8, 1),
+  ],
   plane: () => [
     { d: 'M20 96 L180 28 L132 172 L98 118 Z', fill: 'cream', w: 1 },
     { d: 'M98 118 L180 28', w: .8 },
@@ -329,6 +336,39 @@ const BUILDERS = {
     };
   },
 
+  photo(sc, root, pal) {
+    const W = 840, Hh = 1000, L = (1080 - W) / 2, T = 260;
+    const frame = div('', root);
+    Object.assign(frame.style, { position: 'absolute', left: L + 'px', top: T + 'px', width: W + 'px', height: Hh + 'px',
+      borderRadius: '36px', overflow: 'hidden', border: `6px solid ${pal.gold}`, boxShadow: '0 24px 60px rgba(0,0,0,.55)' });
+    const img = document.createElement('img');
+    img.src = '../' + sc.src;
+    Object.assign(img.style, { width: '100%', height: '100%', objectFit: 'cover', transformOrigin: sc.focus || '50% 50%' });
+    frame.appendChild(img);
+    PENDING.push(img.decode().catch(() => { throw new Error('cannot load photo ' + sc.src); }));
+    const corners = [];
+    for (const [x, y, sx, sy] of [[L - 40, T - 40, 1, 1], [L + W + 40, T - 40, -1, 1], [L - 40, T + Hh + 40, 1, -1], [L + W + 40, T + Hh + 40, -1, -1]]) {
+      const c = makeIcon('koshkar', 170, pal, { stroke: 7 });
+      Object.assign(c.svg.style, { position: 'absolute', left: (x - 85) + 'px', top: (y - 85) + 'px', transform: `scale(${sx},${sy}) rotate(-45deg)` });
+      root.appendChild(c.svg);
+      corners.push(c);
+    }
+    let kicker = null;
+    if (sc.kicker) { kicker = div('center kicker', root, sc.kicker); kicker.style.top = '1310px'; }
+    const tw = div('center title-wrap', root);
+    tw.style.top = sc.kicker ? '1400px' : '1330px';
+    const title = div('title', tw, (sc.title || '').replace(/\*([^*]+)\*/g, '<span class="hl">$1</span>'));
+    title.style.fontSize = '88px';
+    const dir = (sc.seed || 1) % 2 ? 1 : -1;
+    return (u, d) => {
+      const k = u / d;
+      img.style.transform = `scale(${1.04 + .12 * k}) translateX(${dir * (k - .5) * 3}%)`;
+      corners.forEach(c => c.update(prog(u, .1, 1.1), prog(u, .7, 1.2)));
+      if (kicker) { const p = prog(u, .25, .65); kicker.style.opacity = p; kicker.style.transform = `translateX(${(1 - easeOut(p)) * -60}px)`; }
+      title.style.transform = `translateY(${(1 - easeOut(prog(u, .4, .9))) * 115}%)`;
+    };
+  },
+
   cta(sc, root, pal, brand) {
     const logo = makeIcon('shanyrak', 400, pal, { stroke: 4.5 });
     Object.assign(logo.svg.style, { position: 'absolute', left: '340px', top: '360px' });
@@ -367,8 +407,9 @@ const BUILDERS = {
 
 // ---------- timeline ----------
 let SCENES = [], BG = null, PIN = null, TOTAL = 0;
+const PENDING = [];
 
-window.setup = function (spec) {
+window.setup = async function (spec) {
   const pal = PALETTES[spec.palette] || PALETTES.burgundy;
   for (const [k, v] of Object.entries(pal)) document.documentElement.style.setProperty('--' + k, v);
   BG = buildBackground(pal);
@@ -394,6 +435,7 @@ window.setup = function (spec) {
       spark(u);
     };
   }
+  await Promise.all(PENDING);
 };
 
 window.seek = function (t) {

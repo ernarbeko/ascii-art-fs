@@ -1,0 +1,12 @@
+{
+  "title": "Фото үлгісі (шаблон для ваших фото)",
+  "palette": "burgundy",
+  "music": { "tempo": 104, "mode": "aeolian", "seed": 7 },
+  "cover_at": 2.6,
+  "scenes": [
+    { "type": "hook", "text": "*Жаңа* тауарлар келді!", "voice": "Жаңа тауарлар келді!", "min": 3.0, "icon": "koshkar" },
+    { "type": "photo", "src": "photos/_test1.jpg", "kicker": "Қолдан жасалған", "title": "күміс білезік", "voice": "Қолдан жасалған күміс білезік.", "min": 3.0, "seed": 1 },
+    { "type": "photo", "src": "photos/_test2.jpg", "title": "Оюлы кесе", "voice": "Оюлы кесе.", "min": 3.0, "seed": 2 },
+    { "type": "cta", "voice": "Тапсырыс беру үшін директке жазыңыз!", "min": 4.6 }
+  ]
+}

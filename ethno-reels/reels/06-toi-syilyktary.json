@@ -1,0 +1,13 @@
+{
+  "title": "Той сыйлықтары",
+  "palette": "burgundy",
+  "music": { "tempo": 116, "mode": "mixolydian", "seed": 6 },
+  "cover_at": 2.6,
+  "scenes": [
+    { "type": "hook", "text": "*Тойға* не сыйлайсыз?", "voice": "Тойға не сыйлайсыз?", "min": 3.0, "icon": "koshkar" },
+    { "type": "item", "icon": "bilezik", "kicker": "Келінге —", "title": "күміс әшекей", "voice": "Келінге — күміс әшекей.", "min": 2.6, "seed": 18 },
+    { "type": "item", "icon": "shapan", "kicker": "Құдаларға —", "title": "ұлттық шапан", "voice": "Құдаларға — ұлттық шапан.", "min": 2.6, "seed": 20 },
+    { "type": "item", "icon": "kese", "kicker": "Жас отбасына —", "title": "оюлы ыдыс-аяқ", "voice": "Жас отбасына — оюлы ыдыс-аяқ.", "min": 2.6, "seed": 22 },
+    { "type": "cta", "tagline": "Той сыйлықтары — бізде", "voice": "Той сыйлықтары бізде. Директке жазыңыз!", "min": 4.8 }
+  ]
+}
